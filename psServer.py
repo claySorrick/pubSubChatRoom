@@ -21,6 +21,8 @@ catPalace = Publisher("catPalace")
 	
 dogLover = Subscriber("dogLover")
 catLover = Subscriber("catLover")
+mansBestFriend = Subscriber("mansBestFriend")
+animalLover = Subscriber("animalLover")
 
 dog = Topic("dog")
 cat = Topic("cat")
@@ -32,11 +34,14 @@ catPalace.addTopic(cat)
 
 dogLover.subscribe(dog)
 catLover.subscribe(cat)
+mansBestFriend.subscribe(dog)
+animalLover.subscribe(dog)
+animalLover.subscribe(cat)
 
 server.topicsList.append(dog)
-#for t in server.topicsList: print(t.name)
+
 server.topicsList.append(cat)
-#for t in server.topicsList: print(t.name)
+
 
 
 kennel.publish("Dogs are great!")
@@ -44,4 +49,16 @@ pound.publish("We have too many cats and a lot of dogs")
 catPalace.publish("Crazy Cat Ladies Unite")
 
 server.forwardMessages()
+print("")
+
+pound.publish("Stray Black Cat picked up, Albany")
+pound.publish("Black Cat owner found")
+
+server.forwardMessages()
+print("")
+
+catPalace.publish("New cat Towers available")
+
+server.forwardMessages()
+print("")
 

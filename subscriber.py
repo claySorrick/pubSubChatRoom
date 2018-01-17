@@ -1,6 +1,11 @@
 #pub sub topic
 import sys
 
+
+"""
+Publisher class
+sends messages to topics
+"""
 class Publisher:
 	
 	def __init__(self, name):
@@ -16,7 +21,10 @@ class Publisher:
 			self.topicsList.append(topic)
 
 
-
+"""
+Subscriber class
+receives messages from the topics it has subscribed to
+"""
 class Subscriber:
 	
 	def __init__(self, name):
@@ -28,12 +36,17 @@ class Subscriber:
 			self.topicsList.append(topic)
 			topic.addSubscriber(self)
 			
-	def receive(self, message):
-		sys.stdout.write(self.name + " received : " + message)
+	def receive(self, topic, message):
+		sys.stdout.write("Name: " + self.name)
+		sys.stdout.write(", Topic: " + topic.name)
+		sys.stdout.write(", Message: " + message)
 		sys.stdout.write("\n")
         
 		
-        
+"""
+Topic class
+delivers messages to subscribers
+"""
 class Topic:
 
 	def __init__(self, name):
@@ -47,10 +60,10 @@ class Topic:
 			
 	def addMessage(self, message):
 		self.messages.append(message)
-#		sys.stdout.write(message)
 #		self.sendMessages()
 			
 	def sendMessages(self):
 		for msg in self.messages:
 			for sub in self.subscribers:
-				sub.receive(msg)
+				sub.receive(self, msg)
+		self.messages = []
